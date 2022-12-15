@@ -226,4 +226,47 @@ window.addEventListener("DOMContentLoaded", function (event) {
   
       lastTimestamp = timestamp;
     }
-  
+    function stepAndTransition(percentageOfStep) {
+        const newHeadPosition = getNextPosition();
+        console.log(Snake stepping into tile ${newHeadPosition});
+        snakePositions.push(newHeadPosition);
+    
+        const previousTail = tiles[snakePositions[0]];
+        setTile(previousTail);
+    
+        if (newHeadPosition != applePosition) {
+          snakePositions.shift();
+    
+          const tail = tiles[snakePositions[0]];
+          const tailDi = tailDirection();
+          const tailValue = ${100 - percentageOfStep * 100}%;
+    
+          if (tailDi == "right")
+            setTile(tail, {
+              left: 0,
+              width: tailValue,
+              "background-color": color
+            });
+    
+          if (tailDi == "left")
+            setTile(tail, {
+              right: 0,
+              width: tailValue,
+              "background-color": color
+            });
+    
+          if (tailDi == "down")
+            setTile(tail, {
+              top: 0,
+              height: tailValue,
+              "background-color": color
+            });
+    
+          if (tailDi == "up")
+            setTile(tail, {
+              bottom: 0,
+              height: tailValue,
+              "background-color": color
+            });
+        }
+    
